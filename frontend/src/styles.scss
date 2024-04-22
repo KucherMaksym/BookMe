@@ -8,4 +8,8 @@ a {
     text-decoration: none;
 }
 
-.content { flex: 1 0 auto; }
+
+
+html, body {
+  min-height: 100%;
+}

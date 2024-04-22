@@ -1,2 +1,29 @@
-<input type="file" multiple (change)="onFilesSelected($event)">
-    <button (click)="uploadImages()">Upload</button>
+
+
+<div class="content d-flex flex-lg-wrap">
+  <div *ngFor="let hotel of hotels" class="card m-1" style="width: 18rem;">
+    <img class="card-img-top" [src]="'http://localhost:3000/uploads/' + hotel.images[0]" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{hotel.name}}</h5>
+      <p class="card-text">{{hotel.description}}</p>
+      <a routerLink="/new-hotel" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--<p *ngIf="!hotels" style="color: aqua; font-size: 36px;">no</p>-->
+
+<!--<div *ngFor="let hotel of hotels" style="color: red">-->
+<!--  <p>{{hotel.name}}</p>-->
+<!--  <p>{{hotel.images}}</p>-->
+<!--  <img *ngFor="let image of hotel.images" [src]="'http://localhost:3000/uploads/' + image" width="250px" />-->
+
+
+
+
+
+
+<!--</div>-->

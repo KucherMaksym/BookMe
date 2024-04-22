@@ -1,17 +1,36 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {HotelService} from "../../../services/hotel.service";
+import {Hotel} from "../../../../models/Hotel";
+import {NgForOf, NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf,
+    NgIf,
+    RouterLink
+  ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
   selectedFiles: File[] = [];
 
-  constructor(private http: HttpClient) { }
+  hotels:Hotel[] =[];
+  constructor(private http: HttpClient, private hotelService: HotelService) {
+    this.hotelService.getHotels().subscribe(
+      (hotels: Hotel[]) => {
+        this.hotels = hotels;
+        console.log(this.hotels);
+      },
+      (error) => {
+        console.error('Ошибка при получении отелей:', error);
+      }
+    );
+  }
 
   onFilesSelected(event:any) {
     this.selectedFiles = Array.from(event.target.files);
@@ -38,4 +57,5 @@ export class HomePageComponent {
         }
       );
   }
+
 }
