@@ -50,7 +50,7 @@ export class NewHotelPageComponent implements OnInit {
 
     this.hotelService.newHotel(formData).subscribe({
       next: (response) => {
-        console.log('Успешно, вроде ', response.name);
+        console.log('Успешно, вроде  ', response.name);
       },
       error: (error) => {
         console.error('Ошибка при создании отеля:', error);
