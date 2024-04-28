@@ -7,4 +7,6 @@ export class Hotel {
   isFree!:boolean;
   location!:string;
   images!:string[];
+  rating!:number;
+  totalVotes!:number;
 }

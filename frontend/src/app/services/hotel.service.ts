@@ -29,5 +29,9 @@ export class HotelService {
     return this.http.get<Hotel[]>('http://localhost:3000/api/hotels/getAll');
   }
 
+  getHotelById(id:string):Observable<Hotel> {
+    return this.http.get<Hotel>("http://localhost:3000/api/hotels/" + id)
+  }
+
 
 }

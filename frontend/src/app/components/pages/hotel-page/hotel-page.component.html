@@ -1,0 +1,61 @@
+<div *ngIf="hotel" class="container align-items-center justify-content-center h-100 mt-5 mb-5">
+    <div class="row align-items-start flex-sm-column flex-lg-row">
+    <div class="col-12 col-lg-6 mb-3 mb-md-0 d-flex align-items-center justify-content-center" style="height: 400px; max-height: 400px;">
+
+
+
+
+      <div id="carouselExampleIndicators" class="carousel slide h-100 w-100"  data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+          <button *ngFor="let image of secondaryImages; let i = index" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"></button>
+<!--          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>-->
+        </div>
+        <div class="carousel-inner h-100 d-flex align-items-center">
+          <div class="carousel-item active h-100">
+            <img src="{{hotel.images[0]}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="{{hotel.images[0]}}">
+          </div>
+
+          <div *ngFor="let image of secondaryImages" class="carousel-item h-100">
+            <img src="{{image}}" class="d-block w-100 h-100 g-fluid" style="object-fit: cover;" alt="{{image}}">
+          </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+<!--      <img [src]="IMAGE_PATH + hotel.images[0]" alt="{{hotel.images[0]}}" class="img-fluid" style="object-fit: cover;">-->
+    </div>
+    <div class="col-12 col-lg-6 d-flex flex-column p-4">
+
+      <div class="row d-flex justify-content-between align-items-center ">
+        <h3 class="col-7">{{hotel.name}}</h3>
+        <h3 class="col-5 text-end" [ngClass]="hotel.isFree ? 'free' : 'not-free'">status: </h3>
+      </div>
+
+
+      <p class="text-break"> {{hotel.description}}</p>
+
+      <div class="prices row" >
+        <p>price per adult: {{hotel.pricePerAdult}}</p>
+        <p>price per adult: {{hotel.pricePerKid}}</p>
+      </div>
+
+      <p class="p-0"> 📍 {{hotel.location}}</p>
+
+      <button class="btn btn-primary w-25">Book!</button>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!hotel">
+    что-то пошло не так
+</div>

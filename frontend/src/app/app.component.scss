@@ -4,6 +4,16 @@
   min-height: 100vh;
 }
 
+app-hotel-page {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+
 .content-container {
+
   flex: 1;
 }
+
+

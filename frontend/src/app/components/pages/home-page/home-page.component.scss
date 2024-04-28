@@ -1,0 +1,30 @@
+.description-overflow {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* количество строк */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content .card {
+  width: 24%;
+}
+
+@media (max-width: 991p x) {
+  .content .card {
+    width: 32%;
+  }
+}
+
+@media (max-width: 767px) {
+  .content .card {
+    width: 49%;
+  }
+}
+
+@media (max-width: 350px) {
+  .content .card {
+    width: 100%;
+  }
+}
+

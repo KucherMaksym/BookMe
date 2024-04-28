@@ -1,12 +1,28 @@
 
+<!--style="min-width: 300px; min-height: 350px; width: 24%; max-height: 500px"-->
 
-<div class="content d-flex flex-lg-wrap">
-  <div *ngFor="let hotel of hotels" class="card m-1" style="width: 18rem;">
-    <img class="card-img-top" [src]="'http://localhost:3000/uploads/' + hotel.images[0]" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{hotel.name}}</h5>
-      <p class="card-text">{{hotel.description}}</p>
-      <a routerLink="/new-hotel" class="btn btn-primary">Go somewhere</a>
+
+
+
+<div class="content d-flex flex-wrap position-relative justify-content-around">
+  <div routerLink="/hotel/{{hotel.id}}" *ngFor="let hotel of hotels" class="card p-2">
+    <img class="card-img-top h-50 object-fit-cover" src="{{hotel.images[0]}}" alt="{{hotel.images[0]}}">
+    <div class="card-body h-50 d-flex flex-column justify-content-between pb-0">
+
+      <div class="h-25">
+        <h5 class="card-title">{{hotel.name}}</h5>
+        <p class="card-text text-break description-overflow">{{hotel.description}}</p>
+      </div>
+
+      <div class="h-25 text-success align-content-end">
+        <div *ngIf="!hotel.rating || Math.round(hotel.rating) === 0" >no rating</div>
+        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐</div>
+        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐</div>
+        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐⭐</div>
+        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐⭐⭐</div>
+        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐⭐⭐⭐</div>
+        <h5 class="text-end ">{{ hotel.pricePerAdult | currency:'USD'}}</h5>
+      </div>
     </div>
   </div>
 </div>
@@ -27,3 +43,7 @@
 
 
 <!--</div>-->
+
+
+
+
