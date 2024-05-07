@@ -4,27 +4,22 @@
 
 
 
-<div class="content d-flex flex-wrap position-relative justify-content-around">
-  <div routerLink="/hotel/{{hotel.id}}" *ngFor="let hotel of hotels" class="card p-2">
+<div class="content container home d-grid block flex-wrap position-relative mt-1">
+  <a routerLink="/hotel/{{hotel.id}}" *ngFor="let hotel of hotels" class="card p-2 w-100 h-auto">
     <img class="card-img-top h-50 object-fit-cover" src="{{hotel.images[0]}}" alt="{{hotel.images[0]}}">
-    <div class="card-body h-50 d-flex flex-column justify-content-between pb-0">
+    <div class="card-body h-50 d-flex flex-column justify-content-between p-0 pt-3">
 
-      <div class="h-25">
-        <h5 class="card-title">{{hotel.name}}</h5>
-        <p class="card-text text-break description-overflow">{{hotel.description}}</p>
+      <div class="h-25 mb-5">
+        <h5 class="card-title name-overflow fw-bold">{{hotel.name}}</h5>
+        <p class="card-text  description-overflow text lh-1 text-secondary h-auto">{{hotel.description}}</p>
       </div>
 
-      <div class="h-25 text-success align-content-end">
-        <div *ngIf="!hotel.rating || Math.round(hotel.rating) === 0" >no rating</div>
-        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐</div>
-        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐</div>
-        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐⭐</div>
-        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐⭐⭐</div>
-        <div *ngIf="hotel.rating && Math.round(hotel.rating) === 1" >⭐⭐⭐⭐⭐</div>
-        <h5 class="text-end ">{{ hotel.pricePerAdult | currency:'USD'}}</h5>
+      <div class="h-25 text-success align-content-ce mt-2 mb-2 d-flex justify-content-between align-items-center">
+        <span class="badge bg-primary">{{hotel.rating}}</span>
+        <h5 class="text-end align-items-center m-0">{{ hotel.pricePerAdult | currency:'USD'}}</h5>
       </div>
     </div>
-  </div>
+  </a>
 </div>
 
 

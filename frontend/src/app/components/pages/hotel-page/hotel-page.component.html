@@ -40,12 +40,12 @@
         <h3 class="col-5 text-end" [ngClass]="hotel.isFree ? 'free' : 'not-free'">status: </h3>
       </div>
 
-
-      <p class="text-break"> {{hotel.description}}</p>
+      <app-collapsed [content]="hotel.description"></app-collapsed>
+<!--      <p class="text-break"> {{hotel.description}}</p>-->
 
       <div class="prices row" >
         <p>price per adult: {{hotel.pricePerAdult}}</p>
-        <p>price per adult: {{hotel.pricePerKid}}</p>
+        <p>price per kid: {{hotel.pricePerKid}}</p>
       </div>
 
       <p class="p-0"> 📍 {{hotel.location}}</p>

@@ -5,6 +5,7 @@ import {Hotel} from "../../../../models/Hotel";
 import {CurrencyPipe, formatCurrency, NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {IMAGE_PATH} from "../../../constants";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-home-page',
@@ -23,7 +24,16 @@ export class HomePageComponent {
 
   hotels:Hotel[] =[];
   constructor(private http: HttpClient, private hotelService: HotelService) {
-    this.hotelService.getHotels().subscribe(
+
+    const filters = {
+      name: "",
+      minPrice: 0,
+      maxPrice: 1000,
+      location: "",
+      rating: ""
+    };
+
+    this.hotelService.getHotels(filters).subscribe(
       (hotels: Hotel[]) => {
         this.hotels = hotels;
       },
@@ -58,7 +68,7 @@ export class HomePageComponent {
   //         console.error('Error uploading images:', error);
   //       }
   //     );
-  // }
+    // }
 
   protected readonly IMAGE_PATH = IMAGE_PATH;
   protected readonly formatCurrency = formatCurrency;

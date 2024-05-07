@@ -1,0 +1,61 @@
+<div class="container flex-column flex-md-row d-flex h-100">
+  <div class="col-12 col-md-5 col-lg-4 p-4">
+
+<!--    keyup event used for better user experience. for efficiency better to use ngSubmit-->
+    <form class="align-items-center d-flex flex-column" [formGroup]="formGroup" (ngSubmit)="submit()" ngDefaultControl>
+
+      <div class="price d-flex flex-column align-items-center ">
+        <h4 class="text-dark fw-bold">Search Params</h4>
+        <div class="price-inputs w-100 d-flex justify-content-center align-items-center">
+          <label>min</label>
+          <input class="w-25 m-2" type="text" formControlName="minPrice" (focus)="selectAll($event)">
+          <label>max</label>
+          <input class="w-25 m-2" type="text" formControlName="maxPrice"  (focus)="selectAll($event)">
+        </div>
+      </div>
+
+
+      <div class="position-relative input-block w-100 mb-3">
+        <input type="text" class="shadow-none input" (change)="inputNotEmpty($event)" formControlName="name">
+        <label class="position-absolute label">Hotel name</label>
+      </div>
+      <div class="position-relative input-block w-100 mb-3">
+        <input type="text" class="shadow-none input" (change)="inputNotEmpty($event)" formControlName="location">
+        <label class="position-absolute label">Location</label>
+      </div>
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="position-relative input-block w-25 mb-3">
+          <input class="shadow-none input" (change)="inputNotEmpty($event)" formControlName="rating">
+          <label class="position-absolute label" >Rating</label>
+        </div>
+        <div class="d-flex flex-column">
+          <label>Save search params?</label>
+          <input type="checkbox" class="check mt-2" (change)="saveSearchParams()">
+        </div>
+      </div>
+
+      <button class="mt-3" id="demo">Search</button>
+    </form>
+
+  </div>
+  <div class="col-12 col-md-7 col-lg-8">
+    <div *ngIf="hotels " class="content d-grid block flex-wrap position-relative mt-1">
+      <div routerLink="/hotel/{{hotel.id}}" *ngFor="let hotel of hotels" class="card p-2 w-100 h-auto">
+        <img class="card-img-top h-50 object-fit-cover" src="{{hotel.images[0]}}" alt="{{hotel.images[0]}}">
+        <div class="card-body h-50 d-flex flex-column justify-content-between p-0 pt-3">
+
+          <div class="h-25 mb-5">
+            <h5 class="card-title name-overflow fw-bold">{{hotel.name}}</h5>
+            <p class="card-text  description-overflow text lh-1 text-secondary h-auto">{{hotel.description}}</p>
+          </div>
+
+          <div class="h-25 text-success align-content-ce mt-2 mb-2 d-flex justify-content-between align-items-center">
+            <span class="badge bg-primary">{{hotel.rating}}</span>
+            <h5 class="text-end align-items-center m-0">{{ hotel.pricePerAdult | currency:'USD'}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

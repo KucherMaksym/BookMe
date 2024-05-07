@@ -19,7 +19,36 @@ const storage = multer.memoryStorage(); // Использование памят
 const upload = multer({ storage });
 
 router.get("/getAll", expressAsyncHandler(async (req, res) => {
-    const hotels = await HotelModel.find({});
+    const filters = req.query;
+    const nameFilter = filters.name? {name: {$regex: filters.name, $options: 'i'}} :  {};
+
+    if (!filters.maxPrice) return
+
+
+    const priceFilter = {
+        pricePerAdult: {
+            $gte: filters.minPrice || 0,
+            $lte: parseInt(filters.maxPrice.toString()) || Infinity
+        }
+    }
+
+
+
+
+
+    const locationFilter = filters.location? {location: {$regex: filters.location, $options: 'i'}} : {};
+    //const ratingFilter = {rating: {$regex: filters.rating, $options: 'i'}} || {};
+    const ratingFilter = filters.rating ? { rating: filters.rating } : {};
+
+    console.log(nameFilter, priceFilter ,locationFilter, ratingFilter);
+    const hotels = await HotelModel.find({
+        ...nameFilter,
+        ...priceFilter,
+        ...ratingFilter,
+        ...locationFilter
+
+
+    });
     res.send(hotels);
 }));
 

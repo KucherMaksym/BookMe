@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { HeaderComponent } from './components/partials/header/header.component';
 import { FooterComponent } from './components/partials/footer/footer.component';
+import {AuthService} from "./services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,13 @@ import { FooterComponent } from './components/partials/footer/footer.component';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(private authService: AuthService) {
+  }
+
+  // ngOnInit(): void {
+  //   this.authService.isAuthenticated().subscribe(isAuthenticated => {
+  //     console.log(isAuthenticated);
+  //   })
+  // }
 }
