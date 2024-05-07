@@ -1,0 +1,25 @@
+.myNav {
+  border-radius: 20px;
+  //background-color: #acb7f6;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 10px 30px;
+}
+
+.body {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.textarea {
+  width: 100%;
+  border: none;
+  resize: none;
+}
+
+.textarea:focus {
+  border: none;
+  outline: none;
+
+}
+
+.myButton {
+  max-height: 36px;
+}

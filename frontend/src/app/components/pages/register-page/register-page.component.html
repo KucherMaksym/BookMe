@@ -1,0 +1,27 @@
+
+<div class="w-100 h-100 content mt-5 app-container align-items-center d-flex justify-content-center align-content-center">
+
+  <form class="flex-column form border border-2 rounded justify-content-center d-flex align-items-center" (ngSubmit)="register()" [formGroup]="formGroup">
+    <h3>Register</h3>
+    <app-input [label]="'Name'" [control]="formGroup.get('name')"></app-input>
+      <div class="text-start w-100 mb-2">
+        <div class="text-danger fw-bold" *ngIf="fc.name.errors?.['required'] && isConfirmed">Name is required</div>
+      </div>
+    <app-input [label]="'Email'" [control]="formGroup.get('email')"></app-input>
+    <div class="text-start w-100 mb-2">
+      <div class="text-danger fw-bold" *ngIf="fc.email.errors?.['required'] && isConfirmed">Email is required</div>
+      <div class="text-danger fw-bold" *ngIf="fc.email.errors?.['email'] && isConfirmed">Email is not correct</div>
+      <div class="text-danger fw-bold" *ngIf="fc.email.errors?.['maxlength'] && isConfirmed">Email is too long</div>
+    </div>
+
+    <app-input [label]="'Password'" [type]="'password'" [control]="formGroup.get('password')" ></app-input>
+    <div class="text-start w-100 mb-4">
+      <div class="text-danger fw-bold" *ngIf="fc.password.errors?.['required'] && isConfirmed">Password is required</div>
+      <div class="text-danger fw-bold" *ngIf="fc.password.errors?.['minlength'] && isConfirmed">Password is too short</div>
+      <div class="text-danger fw-bold" *ngIf="fc.password.errors?.['maxlength'] && isConfirmed">Password is too long</div>
+    </div>
+    <a routerLink="/login" class="mb-3">Have an account already?</a>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</div>

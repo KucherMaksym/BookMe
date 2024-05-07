@@ -1,0 +1,7 @@
+
+<div class="collapsible" [ngClass]="{'expanded': !isCollapsed}" #myDiv>
+  <button class="border-0 text-primary my-collapse" (click)="toggleCollapse()" #btn>
+    {{ isCollapsed ? 'Show more ⬇' : 'Collapse ⬆' }}
+  </button>
+  <div class="content" #contentDiv>{{ content }}</div>
+</div>

@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Hotel} from "../../../../models/Hotel";
 import {IMAGE_PATH} from "../../../constants";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {CollapsedComponent} from "../../partials/collapsed/collapsed.component";
 
 @Component({
   selector: 'app-hotel-page',
@@ -11,7 +12,8 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
   imports: [
     NgIf,
     NgClass,
-    NgForOf
+    NgForOf,
+    CollapsedComponent
   ],
   templateUrl: './hotel-page.component.html',
   styleUrl: './hotel-page.component.scss'

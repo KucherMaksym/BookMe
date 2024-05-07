@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import { HotelService } from "../../../services/hotel.service";
 import {JsonPipe} from "@angular/common";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-new-hotel-page',
@@ -17,7 +18,7 @@ export class NewHotelPageComponent implements OnInit {
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
   hotelForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private hotelService: HotelService) {
+  constructor(private formBuilder: FormBuilder, private hotelService: HotelService, private authService:AuthService) {
     this.hotelForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
@@ -59,4 +60,10 @@ export class NewHotelPageComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+
+  protected() {
+    this.authService.protected().subscribe(user => {
+    })
+  }
 }

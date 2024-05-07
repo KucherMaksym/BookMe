@@ -1,2 +1,9 @@
-backend/node_modules
-frontend/node_modules
+node_modules/
+
+*.env
+
+# Angular cache
+frontend/.angular/
+
+# Vite cache
+frontend/node_modules/.vite/
