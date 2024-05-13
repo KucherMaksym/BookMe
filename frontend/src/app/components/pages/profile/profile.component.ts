@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../services/auth.service";
 import {User} from "../../../../models/User";
 import {NgIf} from "@angular/common";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {ChatComponent} from "../../partials/chat/chat.component";
+import {user} from "@angular/fire/auth";
 
 
 
@@ -12,12 +14,14 @@ import {FormsModule} from "@angular/forms";
   standalone: true,
   imports: [
     NgIf,
-    FormsModule
+    FormsModule,
+    ChatComponent,
+    RouterLink
   ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
 })
-export class ProfileComponent  {
+export class ProfileComponent implements OnInit {
   user!: User;
   isEditMode: boolean = false;
   activatedArea!:string;
@@ -30,7 +34,7 @@ export class ProfileComponent  {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['login']);
+    //this.router.navigate(['login']);
   }
 
   startEditing(event:any) {
@@ -54,6 +58,12 @@ export class ProfileComponent  {
 
     });
 
+  }
+
+  ngOnInit() {
+    this.authService.user$.subscribe((user:any) => {
+      this.user = user;
+    });
   }
 
 }

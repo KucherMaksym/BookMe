@@ -1,0 +1,39 @@
+.user:hover {
+  cursor: pointer;
+}
+.chat-list-normal {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+}
+
+.chat-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+}
+
+.chat-list-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.chat-window {
+  max-height: calc(100vh - 56px);
+}
+
+.recipient-name {
+  min-height: 85px;
+}
+.search {
+  max-height: 85px;
+}

@@ -4,6 +4,7 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
 import { HeaderComponent } from './components/partials/header/header.component';
 import { FooterComponent } from './components/partials/footer/footer.component';
 import {AuthService} from "./services/auth.service";
+import {ScrollService} from "./services/scroll.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import {AuthService} from "./services/auth.service";
 export class AppComponent {
   title = 'frontend';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, scrollService: ScrollService) {
+
   }
 
   // ngOnInit(): void {

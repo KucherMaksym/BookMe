@@ -1,4 +1,4 @@
-<header appTransparency class="navbar position-fixed top-0 z-2 start-0 end-0 navbar-expand-lg navbar-dark">
+<header appTransparency class="navbar position-fixed top-0 z-2 start-0 end-0 navbar-expand-lg navbar-dark" [ngClass]="headerClasses">
     <div class="container-fluid">
       <!-- Название компании -->
       <a class="navbar-brand logo" routerLink="">BookMe</a>
@@ -11,7 +11,7 @@
 
       <!-- Список ссылок, который на маленьких экранах становится бургером -->
       <a routerLink="search-page" type="button" class="btn btn-dark"><img src="./assets/magnifier.png" alt="search" width="20px" height="20px"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" (click)="toggleExpanded()" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">

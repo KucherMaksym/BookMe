@@ -1,0 +1,48 @@
+<div class="d-flex flex-column vh-100">
+  <div class="d-flex flex-row flex-grow-1">
+    <div class="bg-light border-end chat-list-normal d-none d-md-flex flex-md-column">
+      <div class="p-3 border-bottom search">
+        <input type="text" class="form-control mb-3" placeholder="search">
+      </div>
+      <div class="overflow-auto">
+        <div *ngFor="let user of allUsers" (click)="changeCurrentChat(user.id, user.name)" class="user p-3 border-bottom">
+          <h5 class="mb-1">{{ user.name }}</h5>
+          <p class="mb-0 text-muted">{{ user.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column flex-grow-1 chat-window" *ngIf="user">
+      <div class="d-flex flex-row align-items-center  p-3 bg-light border-bottom recipient-name">
+        <button (click)="toggleChatList()" class="btn btn-primary me-4">Select Chat</button>
+        <h2 class="m-0">{{currentRecipientName}}</h2>
+      </div>
+      <div class="flex-grow-1 overflow-auto p-3 chat-messages">
+        <div *ngFor="let message of messages" class="" [ngClass]="{ 'text-end': message.sender === user.id, 'text-start': message.sender !== user.id }">
+          <div class="d-inline-block p-2 rounded"> <!-- [ngClass]="{ 'bg-primary text-light': message.sender.id === user.id, 'bg-light text-dark': message.sender.id !== user.id }" -->
+<!--            <span *ngIf="message.sender.id !== user.id" class="fw-bold me-2">{{ message.sender.name }}:</span>-->
+            {{ message.text }}
+          </div>
+        </div>
+      </div>
+      <div class="p-3 bg-light border-top">
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="message" placeholder="Write the message">
+          <button class="btn btn-primary" (click)="sendMessages()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-list-overlay d-md-none" (click)="toggleChatList()" *ngIf="showChatList">
+    <div class="bg-light chat-list" (click)="$event.stopPropagation()">
+      <div class="p-3">
+        <input type="text" class="form-control mb-3" placeholder="search">
+      </div>
+      <div class="overflow-auto">
+        <div *ngFor="let user of allUsers" (click)="changeCurrentChat(user.id, user.name); toggleChatList()" class="user p-3 border-bottom">
+          <h5 class="mb-1">{{ user.name }}</h5>
+          <p class="mb-0 text-muted">{{ user.id }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

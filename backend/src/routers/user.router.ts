@@ -131,4 +131,15 @@ router.patch("/patch/:id", expressAsyncHandler(async (req, res) => {
     res.send(newUser);
 }))
 
+
+router.get("/", expressAsyncHandler(async (req, res) => {
+    const allUsers = await UserModel.find();
+    res.send(allUsers);
+}))
+
+router.get("/:id", expressAsyncHandler(async (req, res) => {
+    const user = await UserModel.findById(req.params.id);
+    res.send(user);
+}))
+
 export default router

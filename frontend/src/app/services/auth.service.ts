@@ -17,8 +17,11 @@ export class AuthService {
 
   toastr=inject(ToastrService)
 
-  constructor(private http: HttpClient, private router: Router) {
+  private _user = new BehaviorSubject<User | null>(null);
+  public user$ = this._user.asObservable();
 
+  constructor(private http: HttpClient, private router: Router) {
+    this.loadUserProfile();
   }
   // id!: string;
   // expires!: number;
@@ -66,8 +69,52 @@ export class AuthService {
   }
 
 
-  public logout(): void {
-    this.http.post('http://localhost:3000/api/users/logout', {}).subscribe();
+  private loadUserProfile(): void {
+    this.http.post<User>('http://localhost:3000/api/users/profile', { withCredentials: true }).pipe(
+      tap({
+        next: (user) => {
+          this._user.next(user);
+        },
+        error: (error) => {
+          console.log(error);
+          this.toastr.error(error, "Error", {
+            timeOut: 3000,
+            newestOnTop: true,
+          });
+        }
+      })
+    ).subscribe();
+  }
+
+  updateUserProfile(newInfo: Object): void {
+    const userId = this._user.value?.id;
+    if (userId) {
+      this.http.patch(`http://localhost:3000/api/users/patch/${userId}`, newInfo).pipe(
+        tap({
+          next: (updatedUser:any) => {
+            this._user.next(updatedUser);
+            this.toastr.success("Successfully edited!", "Success", {
+              timeOut: 2000,
+              newestOnTop: true,
+            });
+          },
+          error: (error) => {
+            console.log(error);
+            this.toastr.error(error, "Error", {
+              timeOut: 3000,
+              newestOnTop: true,
+            });
+          }
+        })
+      ).subscribe();
+    }
+  }
+
+  logout(): void {
+    this.http.post('http://localhost:3000/api/users/logout', {}).subscribe(() => {
+      this._user.next(null);
+      this.router.navigate(['login']);
+    });
   }
 
   protected(): Observable<boolean> {

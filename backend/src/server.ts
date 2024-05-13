@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, {Request, Response, NextFunction} from 'express';
 import cors from "cors";
 import {dbConnection} from"./database.config";
 import hotelRouter from  './routers/hotel.router'
@@ -6,11 +6,22 @@ import userRouter from "./routers/user.router";
 import jwt from 'jsonwebtoken';
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+const app = express();
+import { createServer } from "http";
+import {Server} from "socket.io";
+import {messageModel} from "./models/message.model";
 
+const httpServer = createServer(app);
 
+const io = new Server(httpServer, {
+    cors: {
+        origin: ['http://192.168.0.168:4200', 'http://localhost:4200'],
+        credentials: true
+    }
+});
 
 dotenv.config();
-const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -25,8 +36,6 @@ app.use("/api/users", userRouter);
 app.use(cookieParser());
 
 
-
-// Подключение к MongoDB
 dbConnection();
 
 interface AuthRequest extends Request {
@@ -51,11 +60,41 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     return next();
 };
 
-// Защищенный маршрут
 app.get('/protected', verifyToken, (req, res) => {
     res.send(true);
 });
-// Запуск сервера
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+
+const chatRooms:any = {};
+
+io.on("connection", (socket) => {
+    console.log("Client connected");
+
+    socket.on("disconnect", (socket) => {
+        console.log("Client disconnected");
+    })
+
+    socket.on("joinChat", async (userId, recipientId) => {
+        const userIds = [userId, recipientId]; // идентификаторы пользователей
+        const roomId = userIds.sort().join('-');
+        console.log(roomId);
+        socket.join(roomId);
+        const messages = await messageModel.find( {"roomId": roomId})
+        if (messages) socket.emit("initMessages", messages);
+    })
+
+    socket.on("newMessage", (message) => {
+        const { roomId, message: text, currentUser } = message;
+        console.log({roomId, message: text, currentUser })
+        messageModel.create({roomId, text, sender: currentUser})
+        socket.to(roomId).emit("message", { roomId, text, currentUser });
+    })
+
+    socket.on("leaveRoom", (roomId) => {
+        socket.leave(roomId);
+    })
+});
+
+
+httpServer.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });

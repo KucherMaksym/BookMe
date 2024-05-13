@@ -1,4 +1,5 @@
 
+
 .custom-input {
     border-radius: 100rem 0 0 100rem;
     outline: none;
@@ -20,13 +21,23 @@ header {
   background-color: rgb(255, 255, 255);
   transition: background-color 0.5s ease;
 }
+.visible {
+  background-color: #212529 !important;
+}
+
+header.visible > div > .logo,
+header.visible > div > div > ul > li > a,
+header.visible > div > .navbar-toggler,
+header.visible > div > .navbar-toggler > .navbar-toggler-icon{
+  color: #ffffff !important;
+}
 
 header:not(.transparent) {
   background-color: #333;
 }
 
 header.transparent {
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0);
 }
 
 header.transparent > div > .logo,

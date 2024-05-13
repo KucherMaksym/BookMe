@@ -1,7 +1,7 @@
 import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {TransparencyDirective} from "../../../directives/transparency.directive";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import {AuthService} from "../../../services/auth.service";
 import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagnostics";
 
@@ -12,7 +12,8 @@ import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagno
     RouterLink,
     TransparencyDirective,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
+    NgClass
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -20,6 +21,7 @@ import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagno
 export class HeaderComponent implements AfterViewInit {
 
   logged!: boolean;
+  expanded = false;
 
   constructor(private authService: AuthService,private router:Router) {
     this.isLoggedIn()
@@ -27,6 +29,16 @@ export class HeaderComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.isLoggedIn()
+    }
+
+    toggleExpanded() {
+      this.expanded = !this.expanded
+    }
+
+    get headerClasses() {
+      return {
+        'visible': this.expanded
+      };
     }
 
   isLoggedIn () {

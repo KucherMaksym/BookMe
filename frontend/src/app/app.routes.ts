@@ -8,6 +8,7 @@ import {ProtectedComponent} from "./components/pages/protected/protected.compone
 import {AuthGuard} from "./auth.guard";
 import {ProfileComponent} from "./components/pages/profile/profile.component";
 import {RegisterPageComponent} from "./components/pages/register-page/register-page.component";
+import {ChatComponent} from "./components/partials/chat/chat.component";
 
 export const routes: Routes = [
 
@@ -36,6 +37,11 @@ export const routes: Routes = [
     component: RegisterPageComponent
   },
   {
+    path: "profile/chat",
+    component: ChatComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'protected',
     component: ProtectedComponent,
     canActivate: [AuthGuard]
@@ -49,6 +55,7 @@ export const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard]
   },
+
 
 
 
